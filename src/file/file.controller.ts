@@ -1,4 +1,4 @@
-import { Controller, Post, Get, UploadedFile, UseInterceptors, Logger } from '@nestjs/common';
+import { Controller, Post, Get, UploadedFile, UseInterceptors, Logger, Param, Res } from '@nestjs/common';
 import { FileService } from './file.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 
@@ -22,5 +22,11 @@ export class FileController {
     @Get()
     getFiles() {
         return this.fileService.getFiles();
+    }
+
+    @Get(':filename')
+    getFile(@Param('filename') filename: string, @Res() res) {
+        const filePath = this.fileService.getFilePath(filename); // 파일 경로를 반환하는 메소드
+        return res.sendFile(filePath); // 파일 전송
     }
 }

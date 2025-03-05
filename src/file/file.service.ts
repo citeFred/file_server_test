@@ -26,8 +26,7 @@ export class FileService {
         return readdirSync(this.uploadPath);
     }
 
-    getFile(filename: string) {
-        const filepath = join(this.uploadPath, filename);
-        return readFileSync(filepath);
+    getFilePath(filename: string): string {
+        return join(this.uploadPath, filename); // 파일 경로를 문자열로 반환
     }
 }

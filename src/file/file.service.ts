@@ -7,7 +7,7 @@ export class FileService {
     private readonly logger = new Logger(FileService.name);
 
     //   private readonly uploadPath = '/Users/fred/Documents/projects/uploads'; // Use Absolute Path
-    private readonly uploadPath = join(__dirname, '../../../../../videos'); // Use Relative Path
+    private readonly uploadPath = join(__dirname, '../../../../../video'); // Use Relative Path
 
     constructor() {
         mkdirSync(this.uploadPath, { recursive: true });

@@ -1,20 +1,26 @@
-import { Controller, Post, Get, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Post, Get, UploadedFile, UseInterceptors, Logger } from '@nestjs/common';
 import { FileService } from './file.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 
-@Controller('file')
+@Controller('api/file')
 export class FileController {
-  constructor(private readonly fileService: FileService) {}
+    private readonly logger = new Logger(FileController.name);
 
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
-    this.fileService.saveFile(file);
-    return { message: 'File uploaded successfully' };
-  }
+    constructor(private readonly fileService: FileService) { }
 
-  @Get()
-  getFiles() {
-    return this.fileService.getFiles();
-  }
+    @Post('upload')
+    @UseInterceptors(FileInterceptor('file'))
+    uploadFile(@UploadedFile() file: Express.Multer.File) {
+        this.logger.verbose(`Uploading ${file.originalname}, size:${file.size}, type:${file.mimetype}`);
+
+        this.fileService.saveFile(file);
+
+        this.logger.verbose(`File Uploaded successfully`);
+        return { message: 'File uploaded successfully' };
+    }
+
+    @Get()
+    getFiles() {
+        return this.fileService.getFiles();
+    }
 }

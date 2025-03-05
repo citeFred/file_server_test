@@ -5,7 +5,7 @@ import { join } from 'path';
 @Injectable()
 export class FileService {
     private readonly logger = new Logger(FileService.name);
-    
+
     //   private readonly uploadPath = '/Users/fred/Documents/projects/uploads'; // Use Absolute Path
     private readonly uploadPath = join(__dirname, '../../../uploads'); // Use Relative Path
 

@@ -21,6 +21,7 @@ export class FileController {
 
     @Get()
     getFiles() {
+        this.logger.verbose(`Retriving Files`);
         return this.fileService.getFiles();
     }
 

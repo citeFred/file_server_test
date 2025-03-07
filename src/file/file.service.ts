@@ -6,8 +6,8 @@ import { join } from 'path';
 export class FileService {
     private readonly logger = new Logger(FileService.name);
 
-    //   private readonly uploadPath = '/Users/fred/Documents/projects/uploads'; // Use Absolute Path
-    private readonly uploadPath = join(__dirname, '../../../../../video'); // Use Relative Path
+      private readonly uploadPath = '/var/services/video'; // Use Absolute Path
+    // private readonly uploadPath = join(__dirname, '../../../../../video'); // Use Relative Path
 
     constructor() {
         mkdirSync(this.uploadPath, { recursive: true });
@@ -23,6 +23,7 @@ export class FileService {
     }
 
     getFiles() {
+        this.logger.verbose(`FileService Layer trying to get files list from: ${this.uploadPath}`);
         return readdirSync(this.uploadPath);
     }
 

@@ -19,15 +19,15 @@ export class FileController {
         return { message: 'File uploaded successfully' };
     }
 
-    @Get()
-    getFiles() {
-        this.logger.verbose(`Retriving Files`);
-        return this.fileService.getFiles();
+    @Get(':type') // type 매개변수를 추가
+    getFiles(@Param('type') type: 'videos' | 'images' | 'docs') {
+        this.logger.verbose(`Retrieving Files of type: ${type}`);
+        return this.fileService.getFiles(type); // type 인자를 전달
     }
 
-    @Get(':filename')
-    getFile(@Param('filename') filename: string, @Res() res) {
-        const filePath = this.fileService.getFilePath(filename); // 파일 경로를 반환하는 메소드
+    @Get(':type/:filename') // type 매개변수를 추가
+    getFile(@Param('type') type: 'videos' | 'images' | 'docs', @Param('filename') filename: string, @Res() res) {
+        const filePath = this.fileService.getFilePath(filename, type); // type 인자를 전달
         return res.sendFile(filePath); // 파일 전송
     }
 }
